@@ -1,0 +1,471 @@
+/* ═══════════════════════════════════════════════════════════
+   Badge.module.css  –  VELOOP Level Badge System
+   AAA Gaming-Grade 3D Metallic Badges with Sculpted Emblems,
+   Multi-Stop Gradients, Dynamic Shimmer, and Tier Lighting.
+═══════════════════════════════════════════════════════════ */
+
+/* ─── Standard Plaque Badge ───────────────────────────────── */
+.plaqueWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.65));
+  perspective: 700px;
+}
+
+.plaqueWrapper:hover {
+  transform: translateY(-6px) scale(1.06);
+  filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 20px var(--tier-glow, rgba(245, 158, 11, 0.4)));
+}
+
+.plaqueWrapper:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
+/* Size Variants */
+.small {
+  width: 64px;
+  height: 64px;
+}
+.normal {
+  width: 104px;
+  height: 104px;
+}
+.large {
+  width: 144px;
+  height: 144px;
+}
+.huge {
+  width: 192px;
+  height: 192px;
+}
+
+/* Dynamic Ambient Glow */
+.glowAura {
+  position: absolute;
+  inset: -14%;
+  border-radius: 50%;
+  filter: blur(14px);
+  pointer-events: none;
+  opacity: 0.65;
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+.plaqueWrapper:hover .glowAura {
+  opacity: 0.95;
+  filter: blur(18px);
+}
+
+.plaqueSvg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* Shimmer Sheen Layer */
+.badgeSheenLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 20%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.plaqueWrapper:hover .badgeSheenLayer::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0) 35%,
+    rgba(255, 255, 255, 0.3) 48%,
+    rgba(255, 255, 255, 0.65) 50%,
+    rgba(255, 255, 255, 0.3) 52%,
+    rgba(255, 255, 255, 0) 65%
+  );
+  animation: badgeShine 1s ease-in-out forwards;
+}
+
+@keyframes badgeShine {
+  0% { transform: translate(-30%, -30%); }
+  100% { transform: translate(30%, 30%); }
+}
+
+/* Overlay Content (Sculpted Level Trophy Pedestal at Base) */
+.plaqueContent {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.small .plaqueContent  { bottom: -3px; }
+.normal .plaqueContent { bottom: -5px; }
+.large  .plaqueContent { bottom: -7px; }
+.huge   .plaqueContent { bottom: -10px; }
+
+/* Sculpted 3D Metallic Championship Plaque Banner */
+.plaquePlateBanner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: linear-gradient(180deg, #1C2237 0%, #0A0D18 100%);
+  border: 1.5px solid var(--tier-primary, #F59E0B);
+  box-shadow: 
+    0 4px 14px rgba(0, 0, 0, 0.85), 
+    0 0 12px var(--tier-glow, rgba(245, 158, 11, 0.4)), 
+    inset 0 1px 2px rgba(255, 255, 255, 0.45);
+  border-radius: var(--radius-full);
+  padding: 2px 10px;
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.small  .plaquePlateBanner { padding: 1px 6px; gap: 2px; border-width: 1px; }
+.normal .plaquePlateBanner { padding: 2px 9px; gap: 4px; border-width: 1.5px; }
+.large  .plaquePlateBanner { padding: 3px 14px; gap: 6px; border-width: 2px; }
+.huge   .plaquePlateBanner { padding: 5px 20px; gap: 8px; border-width: 2px; }
+
+.plaqueLevelLabel {
+  font-family: var(--font-heading);
+  font-size: 0.52rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--gold-300);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+.small  .plaqueLevelLabel { font-size: 0.42rem; }
+.normal .plaqueLevelLabel { font-size: 0.58rem; }
+.large  .plaqueLevelLabel { font-size: 0.76rem; }
+.huge   .plaqueLevelLabel { font-size: 1.05rem; }
+
+.plaqueLevelNum {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFFBEB 25%, #FDE68A 50%, #F59E0B 85%, #B45309 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.9));
+  letter-spacing: -0.01em;
+}
+.small  .plaqueLevelNum { font-size: 0.76rem; }
+.normal .plaqueLevelNum { font-size: 1.15rem; }
+.large  .plaqueLevelNum { font-size: 1.65rem; }
+.huge   .plaqueLevelNum { font-size: 2.25rem; }
+
+.plaqueStars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  margin-top: 2px;
+  color: #FBBF24;
+  font-size: 0.46rem;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.8));
+}
+.centerStar {
+  font-size: 0.62rem;
+  transform: translateY(-1px);
+}
+.small  .plaqueStars   { font-size: 0.34rem; gap: 2px; }
+.normal .plaqueStars   { font-size: 0.52rem; gap: 3px; margin-top: 2px; }
+.normal .centerStar    { font-size: 0.68rem; }
+.large  .plaqueStars   { font-size: 0.72rem; gap: 4px; margin-top: 3px; }
+.large  .centerStar    { font-size: 0.92rem; }
+.huge   .plaqueStars   { font-size: 1rem;    gap: 6px; margin-top: 5px; }
+.huge   .centerStar    { font-size: 1.3rem; }
+
+/* Floating Crown Rarity Tag (Anchored Gracefully at Top) */
+.rarityBadgeTag {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.55rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  border: 1px solid;
+  backdrop-filter: blur(8px);
+  z-index: 6;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+.large .rarityBadgeTag {
+  top: -10px;
+  font-size: 0.64rem;
+  padding: 3px 12px;
+}
+
+/* ─── Laurel Crest Badge (Screen 5 Level Up) ──────────────── */
+.laurelWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: default;
+  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.7));
+  transition: transform 0.3s ease;
+}
+
+.laurelWrapper.normal {
+  width: 160px;
+  height: 140px;
+}
+.laurelWrapper.large {
+  width: 210px;
+  height: 180px;
+}
+.laurelWrapper.huge {
+  width: 260px;
+  height: 220px;
+}
+
+.laurelGlowAura {
+  position: absolute;
+  inset: -12%;
+  border-radius: 50%;
+  filter: blur(20px);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.laurelSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.laurelContent {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 12%;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* Float idle levitation */
+.animated {
+  animation: floatBadge 3.6s ease-in-out infinite;
+}
+
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
+}
+
+/* ─── Mini Badge for Roadmap Nodes ────────────────────────── */
+.miniNodeBadge {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55));
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .miniNodeBadge {
+    width: 68px;
+    height: 68px;
+  }
+}
+
+.miniNodeBadge:hover {
+  transform: translateY(-5px) scale(1.08);
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 12px var(--mini-glow, rgba(245, 158, 11, 0.5)));
+}
+
+.miniGlowAura {
+  position: absolute;
+  inset: -12%;
+  border-radius: 50%;
+  filter: blur(10px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  transition: opacity 0.3s ease;
+}
+
+.miniNodeBadge:hover .miniGlowAura {
+  opacity: 0.9;
+}
+
+.miniNodeSvg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Current Tier (Level 05) - Spectacular Focal Point */
+.miniNodeCurrent {
+  width: 90px;
+  height: 90px;
+  filter: drop-shadow(0 6px 20px rgba(245, 158, 11, 0.65)) drop-shadow(0 8px 24px rgba(0, 0, 0, 0.8));
+  animation: pulseCurrentNode 2.8s ease-in-out infinite;
+}
+
+@keyframes pulseCurrentNode {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@media (max-width: 600px) {
+  .miniNodeCurrent {
+    width: 78px;
+    height: 78px;
+  }
+}
+
+/* Next Target (Level 06) */
+.miniNodeNext {
+  filter: drop-shadow(0 5px 16px rgba(192, 132, 252, 0.5)) drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6));
+}
+
+/* Completed Tier (Levels 01 - 04) */
+.miniNodeCompleted {
+  filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.35)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+}
+
+/* Locked Tier (Levels 07 - 10) */
+.miniNodeLocked {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
+  opacity: 0.7;
+}
+
+/* Level Number Overlay Inside Badge */
+.miniTextOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 12%;
+  pointer-events: none;
+}
+
+.miniNum {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.88rem;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  background: rgba(10, 14, 24, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.miniNumCurrent {
+  font-size: 1rem;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFFBEB 25%, #FDE68A 50%, #F59E0B 85%, #B45309 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-color: #F59E0B;
+  background-color: rgba(20, 24, 38, 0.95);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.5);
+}
+
+.miniNumNext {
+  font-size: 0.92rem;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF5FF 30%, #E9D5FF 60%, #C084FC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-color: #C084FC;
+  background-color: rgba(20, 10, 35, 0.95);
+}
+
+.miniNumCompleted {
+  font-size: 0.86rem;
+  color: #A7F3D0;
+  border-color: #059669;
+}
+
+.miniNumLocked {
+  font-size: 0.82rem;
+  color: #94A3B8;
+  opacity: 0.75;
+}
+
+/* Corner Indicators */
+.completedBadgePill {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.checkIconSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.lockedBadgePill {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.lockIconSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}

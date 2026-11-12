@@ -1,0 +1,268 @@
+.toolbarWrapper {
+  position: fixed;
+  top: 70px;
+  right: 16px;
+  z-index: 2000;
+  max-width: 440px;
+  width: calc(100% - 32px);
+  background: var(--bg-card);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition-normal);
+}
+
+@media (max-width: 768px) {
+  .toolbarWrapper {
+    top: auto;
+    bottom: 82px;
+    right: 12px;
+    left: auto;
+    width: auto;
+    max-width: 220px;
+    opacity: 0.95;
+    z-index: 2100;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  }
+
+  .toolbarWrapper.expanded {
+    bottom: 82px;
+    top: auto;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    max-width: none;
+    max-height: 72vh;
+    overflow-y: auto;
+    opacity: 1;
+  }
+}
+
+.toggleBar {
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggleInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sliderIcon {
+  color: var(--gold-400);
+}
+
+.toggleTitle {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stateIndicator {
+  font-size: 0.65rem;
+  color: var(--gold-400);
+  background: rgba(245, 158, 11, 0.15);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+}
+
+.chevronWrap {
+  color: var(--text-muted);
+}
+
+.panelContent {
+  padding: 12px 14px 14px 14px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.blockLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.buttonRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.navChip {
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.navChip:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.chipActive {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: var(--gold-400);
+  color: var(--gold-300);
+}
+
+.stateChip {
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all var(--transition-fast);
+}
+
+.stateChip:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.stateChip.chipActive {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: var(--gold-400);
+  color: var(--gold-300);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+
+.actionsRow {
+  display: flex;
+  gap: 8px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.actionControlsRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dockBtn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-gold);
+  color: var(--gold-400);
+  border-radius: 6px;
+  padding: 3px 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.dockBtn:hover {
+  background: var(--gold-400);
+  color: #121420;
+}
+
+.dockedSideTab {
+  position: fixed;
+  top: 75px;
+  right: 0;
+  z-index: 2500;
+  background: rgba(18, 20, 32, 0.92);
+  border: 1px solid var(--border-gold);
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gold-400);
+  cursor: pointer;
+  box-shadow: -4px 4px 16px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  backdrop-filter: blur(12px);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideInDock 0.3s ease;
+}
+
+.dockedSideTab:hover {
+  transform: translateX(-4px);
+  background: rgba(24, 28, 48, 0.98);
+}
+
+.dockedText {
+  color: #ffffff;
+  font-size: 0.7rem;
+}
+
+@keyframes slideInDock {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.levelUpTriggerBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--gold-gradient);
+  color: #161827;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.levelUpTriggerBtn:hover {
+  transform: translateY(-1px);
+}
+
+.resetBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.resetBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
