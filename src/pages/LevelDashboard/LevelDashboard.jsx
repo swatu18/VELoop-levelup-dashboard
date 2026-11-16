@@ -8,7 +8,6 @@ import { LuckyWheelBanner } from '../../components/LuckyWheel/LuckyWheelBanner';
 import { EarnMoreXP } from '../../components/EarnMoreXP/EarnMoreXP';
 import { NextLevelReward } from '../../components/NextLevelReward/NextLevelReward';
 import { LevelRoadmap } from '../../components/LevelRoadmap/LevelRoadmap';
-import { MultiplayerLeaderboard } from '../../components/Multiplayer/MultiplayerLeaderboard';
 import { RedemptionGateway } from '../../components/Redemption/RedemptionGateway';
 import { GameContainer } from '../../components/PlayAndEarn/GameContainer';
 import { XPActivity } from '../../components/XPActivity/XPActivity';
@@ -20,6 +19,15 @@ import styles from './LevelDashboard.module.css';
 export const LevelDashboard = () => {
   const { demoState, activeScreen } = useDashboard();
   const { isAuthenticated } = useAuth();
+
+  // If user is not authenticated, show the Official VELOOP Login / Welcome Gateway
+  if (!isAuthenticated) {
+    return (
+      <main className={styles.mainContainer}>
+        <AuthGate />
+      </main>
+    );
+  }
 
   // Handle Demo UX States (Sections 40, 41, 42)
   if (demoState === 'loading') {
@@ -105,12 +113,7 @@ export const LevelDashboard = () => {
         <EarnMoreXP isFullPage={false} />
       </section>
 
-      {/* 7. Multiplayer League & Tournament Brackets */}
-      <section id="multiplayer-section" className={styles.sectionRow}>
-        <MultiplayerLeaderboard isFullPage={false} />
-      </section>
-
-      {/* 8. Instant Redemption Gateway & E-Vouchers */}
+      {/* 7. Instant Redemption Gateway & E-Vouchers */}
       <section id="redemption-section" className={styles.sectionRow}>
         <RedemptionGateway isFullPage={false} />
       </section>

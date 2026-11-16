@@ -152,7 +152,7 @@ export const AuthGate = () => {
             onClick={() => quickDemoLogin()}
           >
             <Zap size={15} />
-            <span>1-Click Instant Demo Login (Reviewer Access)</span>
+            <span>⚡ 1-Click Instant Demo Login as Swathi G</span>
           </button>
         </form>
 

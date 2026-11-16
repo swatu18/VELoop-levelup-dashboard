@@ -26,10 +26,10 @@ export const LevelHero = () => {
 
   return (
     <section className={styles.heroSection}>
-      {/* Top Greeting Message â€“ Exactly Matching Page 33 Screen 1 */}
+      {/* Top Greeting Message */}
       <div className={styles.greetingHeader}>
         <h1 className={styles.heroTitle}>
-          Good Morning, <span className={styles.goldText}>VeLooper!</span> 👋
+          Good Morning, <span className={styles.goldText}>{currentUser?.name || user?.userName || 'Swathi G'}!</span> 👋
         </h1>
         <p className={styles.heroSubtitle}>
           Level up your journey and unlock epic rewards every day.

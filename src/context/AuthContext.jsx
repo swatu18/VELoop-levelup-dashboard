@@ -6,11 +6,11 @@ const MOCK_USERS_KEY = 'veloop_users';
 const MOCK_SESSION_KEY = 'veloop_session';
 
 const DEFAULT_USER = {
-  id: 'user_veloop_demo',
-  name: 'VELOOP Member',
-  email: 'member@veloop.rewards',
+  id: 'user_swathi_g',
+  name: 'Swathi G',
+  email: 'swathi.g@veloop.rewards',
   password: 'password123',
-  avatar: 'VL',
+  avatar: 'SG',
   joinedAt: '2026-10-01T00:00:00.000Z',
   isNewUser: false
 };
@@ -23,13 +23,13 @@ const getStoredUsers = () => {
   return [];
 };
 
-// Returns active session user if exists in localStorage, otherwise DEFAULT_USER for immediate dashboard access
+// Returns active session user if exists in localStorage, otherwise null (requiring login/demo entrance)
 const getStoredSession = () => {
   try {
     const session = JSON.parse(localStorage.getItem(MOCK_SESSION_KEY));
     if (session && session.expiresAt > Date.now()) return session.user;
   } catch {}
-  return DEFAULT_USER;
+  return null;
 };
 
 export const AuthProvider = ({ children }) => {
