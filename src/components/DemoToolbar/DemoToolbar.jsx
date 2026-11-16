@@ -33,8 +33,11 @@ export const DemoToolbar = () => {
   } = useDashboard();
 
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isDockedSide, setIsDockedSide] = useState(false); // Swipe to side state
-  const touchStartXRef = useRef(0);
+  const [isDockedSide, setIsDockedSide] = useState(false);
+  const [isDismissed, setIsDismissed] = useState(false);
+  const [position, setPosition] = useState(null); // { x: number, y: number }
+  const isDraggingRef = useRef(false);
+  const dragStartOffsetRef = useRef({ x: 0, y: 0 });
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -48,28 +51,59 @@ export const DemoToolbar = () => {
     }
   };
 
-  // Touch Swipe handlers to dismiss/park bar to the edge
-  const handleTouchStart = (e) => {
-    touchStartXRef.current = e.touches[0].clientX;
+  // Drag and drop handlers (Pointer Events: Works for both mouse and touch)
+  const handlePointerDown = (e) => {
+    if (e.target.closest('button') || e.target.closest('input')) return;
+    isDraggingRef.current = true;
+    const rect = e.currentTarget.getBoundingClientRect();
+    dragStartOffsetRef.current = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    };
+    e.currentTarget.setPointerCapture(e.pointerId);
   };
 
-  const handleTouchEnd = (e) => {
-    const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchEndX - touchStartXRef.current;
-    if (Math.abs(diff) > 40) {
-      // Swiped horizontally: dock to side!
-      setIsDockedSide(true);
-      setIsExpanded(false);
-    }
+  const handlePointerMove = (e) => {
+    if (!isDraggingRef.current) return;
+    const padding = 10;
+    const newX = Math.max(padding, Math.min(window.innerWidth - 120, e.clientX - dragStartOffsetRef.current.x));
+    const newY = Math.max(padding, Math.min(window.innerHeight - 60, e.clientY - dragStartOffsetRef.current.y));
+    setPosition({ x: newX, y: newY });
   };
 
-  // When docked to side, show a sleek miniature floating edge button
+  const handlePointerUp = (e) => {
+    isDraggingRef.current = false;
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    } catch {}
+  };
+
+  // If dismissed completely, show a tiny floating restore pill
+  if (isDismissed) {
+    return (
+      <button
+        className={styles.restorePill}
+        style={position ? { left: `${position.x}px`, top: `${position.y}px`, right: 'auto', bottom: 'auto' } : undefined}
+        onClick={() => setIsDismissed(false)}
+        title="Click to reopen Evaluator Bar"
+      >
+        <Sliders size={15} />
+        <span>DEV</span>
+      </button>
+    );
+  }
+
+  // When docked to side, show a sleek miniature floating edge button (draggable)
   if (isDockedSide) {
     return (
       <div 
         className={styles.dockedSideTab}
+        style={position ? { left: `${position.x}px`, top: `${position.y}px`, right: 'auto', bottom: 'auto' } : undefined}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
         onClick={() => setIsDockedSide(false)}
-        title="Tap to Expand Evaluator Controls"
+        title="Tap to Expand Evaluator Controls (Hold to drag anywhere)"
       >
         <Sliders size={14} className={styles.sliderIcon} />
         <span className={styles.dockedText}>DEV</span>
@@ -81,15 +115,18 @@ export const DemoToolbar = () => {
   return (
     <div 
       className={`${styles.toolbarWrapper} ${isExpanded ? styles.expanded : ''}`}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
+      style={position ? { left: `${position.x}px`, top: `${position.y}px`, right: 'auto', bottom: 'auto' } : undefined}
     >
-      {/* Minimized Bar Header */}
+      {/* Minimized Bar Header / Drag Handle */}
       <div 
         className={styles.toggleBar}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
         onClick={() => setIsExpanded(!isExpanded)}
         role="button"
         tabIndex={0}
+        title="Click to expand/collapse • Hold and drag to move anywhere"
       >
         <div className={styles.toggleInfo}>
           <Sliders size={16} className={styles.sliderIcon} />
@@ -107,9 +144,19 @@ export const DemoToolbar = () => {
           <button 
             className={styles.dockBtn}
             onClick={(e) => { e.stopPropagation(); setIsDockedSide(true); }}
-            title="Swipe or click to hide to side edge"
+            title="Dock to side edge"
+            aria-label="Dock to side"
           >
             <ChevronRight size={15} />
+          </button>
+          {/* Close / Dismiss button */}
+          <button 
+            className={styles.dockBtn}
+            onClick={(e) => { e.stopPropagation(); setIsDismissed(true); }}
+            title="Close Evaluator Bar"
+            aria-label="Close"
+          >
+            <X size={14} />
           </button>
         </div>
       </div>

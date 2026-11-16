@@ -1,3 +1,31 @@
+.restorePill {
+  position: fixed;
+  top: 75px;
+  right: 12px;
+  z-index: 2500;
+  background: rgba(18, 20, 32, 0.9);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-full);
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gold-400);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.72rem;
+  backdrop-filter: blur(10px);
+  touch-action: none;
+  user-select: none;
+}
+
+.restorePill:hover {
+  background: var(--gold-400);
+  color: #121420;
+}
+
 .toolbarWrapper {
   position: fixed;
   top: 70px;
@@ -14,7 +42,35 @@
 }
 
 @media (max-width: 768px) {
-  .toolbarWrapper {
+  .restorePill {
+  position: fixed;
+  top: 75px;
+  right: 12px;
+  z-index: 2500;
+  background: rgba(18, 20, 32, 0.9);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-full);
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gold-400);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.72rem;
+  backdrop-filter: blur(10px);
+  touch-action: none;
+  user-select: none;
+}
+
+.restorePill:hover {
+  background: var(--gold-400);
+  color: #121420;
+}
+
+.toolbarWrapper {
     top: auto;
     bottom: 82px;
     right: 12px;

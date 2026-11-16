@@ -118,7 +118,7 @@ export const Navbar = ({ onOpenMenu }) => {
         <div className={styles.userControls}>
           {/* Theme Toggle (Dark / Light) */}
           <button
-            className={styles.iconBtn}
+            className={`${styles.iconBtn} ${styles.hideOnMobile}`}
             onClick={toggleTheme}
             title={theme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
             aria-label="Toggle Theme"
@@ -128,7 +128,7 @@ export const Navbar = ({ onOpenMenu }) => {
 
           {/* Audio toggle */}
           <button
-            className={styles.iconBtn}
+            className={`${styles.iconBtn} ${styles.hideOnMobile}`}
             onClick={toggleSound}
             title={soundEnabled ? 'Mute Sound Effects' : 'Enable Sound Effects'}
             aria-label="Toggle Sound"
