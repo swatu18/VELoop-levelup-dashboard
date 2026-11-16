@@ -23,13 +23,13 @@ const getStoredUsers = () => {
   return [];
 };
 
-// Returns active session user if exists in localStorage, otherwise null (unauthenticated by default)
+// Returns active session user if exists in localStorage, otherwise DEFAULT_USER for immediate dashboard access
 const getStoredSession = () => {
   try {
     const session = JSON.parse(localStorage.getItem(MOCK_SESSION_KEY));
     if (session && session.expiresAt > Date.now()) return session.user;
   } catch {}
-  return null;
+  return DEFAULT_USER;
 };
 
 export const AuthProvider = ({ children }) => {

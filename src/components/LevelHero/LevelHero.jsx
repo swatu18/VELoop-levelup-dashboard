@@ -26,15 +26,13 @@ export const LevelHero = () => {
 
   return (
     <section className={styles.heroSection}>
-      {/* Top Greeting Message */}
+      {/* Top Greeting Message â€“ Exactly Matching Page 33 Screen 1 */}
       <div className={styles.greetingHeader}>
         <h1 className={styles.heroTitle}>
-          Good Morning, <span className={styles.goldText}>VELOOP!</span>
+          Good Morning, <span className={styles.goldText}>VeLooper!</span> 👋
         </h1>
         <p className={styles.heroSubtitle}>
-          {currentUser?.name 
-            ? `Welcome back, ${currentUser.name}! Ascend prestige tiers, unlock mystery vaults, and earn daily rewards.` 
-            : 'Ascend prestige tiers, unlock mystery vaults, and earn daily rewards.'}
+          Level up your journey and unlock epic rewards every day.
         </p>
       </div>
 

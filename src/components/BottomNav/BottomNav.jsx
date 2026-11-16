@@ -5,10 +5,10 @@ import { useDashboard } from '../../context/DashboardContext';
 import styles from './BottomNav.module.css';
 
 export const BottomNav = () => {
-  const { activeScreen, setActiveScreen } = useDashboard();
+  const { activeScreen, setActiveScreen, setActiveInfoModal } = useDashboard();
   const navigate = useNavigate();
   const location = useLocation();
-  const isDashboard = location.pathname.toLowerCase().includes('lvl-dashboard');
+  const isDashboard = location.pathname.toLowerCase().includes('lvl-dashboard') || location.pathname === '/' || location.pathname.toLowerCase().includes('dashboard');
 
   const goTo = (screen) => {
     setActiveScreen(screen);
@@ -54,11 +54,12 @@ export const BottomNav = () => {
       </button>
 
       <button 
-        className={`${styles.navBtn} ${!isDashboard ? styles.active : ''}`}
-        onClick={() => navigate('/')}
+        className={styles.navBtn}
+        onClick={() => setActiveInfoModal('level')}
+        title="View Profile & Level Privileges"
       >
         <User size={20} />
-        <span>Overview</span>
+        <span>Profile</span>
       </button>
     </nav>
   );

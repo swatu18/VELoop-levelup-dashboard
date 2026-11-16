@@ -34,13 +34,14 @@ export function App() {
               {/* Evaluator Demo Switcher & UX State Verifier */}
               <DemoToolbar />
 
-              {/* Core Routes: / for Landing Page, /Lvl-Dashboard for Progression Dashboard */}
+              {/* Core Routes: Direct to LevelDashboard on root and /Lvl-Dashboard */}
               <Routes>
-                <Route path="/" element={<LandingPage />} />
+                <Route path="/" element={<LevelDashboard />} />
                 <Route path="/Lvl-Dashboard" element={<LevelDashboard />} />
                 <Route path="/lvl-dashboard" element={<LevelDashboard />} />
                 <Route path="/dashboard" element={<LevelDashboard />} />
-                <Route path="*" element={<Navigate to="/Lvl-Dashboard" replace />} />
+                <Route path="/landing" element={<LandingPage />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
 
               {/* Mobile Bottom Navigation Bar */}
