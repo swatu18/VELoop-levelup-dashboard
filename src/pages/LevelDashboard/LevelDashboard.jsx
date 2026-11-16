@@ -21,15 +21,6 @@ export const LevelDashboard = () => {
   const { demoState, activeScreen } = useDashboard();
   const { isAuthenticated } = useAuth();
 
-  // If user is not authenticated, show the Sign In / Create Account Gate
-  if (!isAuthenticated) {
-    return (
-      <main className={styles.mainContainer}>
-        <AuthGate />
-      </main>
-    );
-  }
-
   // Handle Demo UX States (Sections 40, 41, 42)
   if (demoState === 'loading') {
     return (

@@ -34,13 +34,12 @@ export function App() {
               {/* Evaluator Demo Switcher & UX State Verifier */}
               <DemoToolbar />
 
-              {/* Core Routes: Direct to LevelDashboard on root and /Lvl-Dashboard */}
+              {/* Core Routes: Direct immediately to LevelDashboard across all paths */}
               <Routes>
                 <Route path="/" element={<LevelDashboard />} />
                 <Route path="/Lvl-Dashboard" element={<LevelDashboard />} />
                 <Route path="/lvl-dashboard" element={<LevelDashboard />} />
                 <Route path="/dashboard" element={<LevelDashboard />} />
-                <Route path="/landing" element={<LandingPage />} />
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
 
